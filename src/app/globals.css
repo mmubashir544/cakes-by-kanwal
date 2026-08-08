@@ -28,6 +28,10 @@
   --font-sans: var(--font-sans);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--color-cream);
   color: var(--color-body-ink);
@@ -55,7 +59,70 @@ h4 {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 500;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -12px rgba(90, 69, 71, 0.35);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.link-underline {
+  position: relative;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+.card-hover {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 40px -24px rgba(90, 69, 71, 0.28);
+}
+
+.img-zoom {
+  overflow: hidden;
+}
+
+.img-zoom img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.img-zoom:hover img {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn,
+  .btn:hover,
+  .btn:active,
+  .link-underline,
+  .card-hover,
+  .card-hover:hover,
+  .img-zoom img,
+  .img-zoom:hover img {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 .eyebrow {

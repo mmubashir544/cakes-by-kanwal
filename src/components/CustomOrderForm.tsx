@@ -3,7 +3,10 @@
 import { useState, type ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { AnimatePresence, motion } from "motion/react";
 import StepIndicator from "@/components/StepIndicator";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 type FormData = {
   occasion: string;
@@ -55,11 +58,12 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 }
 
 const inputClass =
-  "w-full border-0 border-b border-border bg-transparent py-2 text-body-ink focus:border-primary focus:outline-none";
+  "w-full border-0 border-b border-border bg-transparent py-2 text-body-ink transition-colors focus:border-primary focus:outline-none";
 
 export default function CustomOrderForm() {
   const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
+  const [direction, setDirection] = useState(1);
   const [data, setData] = useState<FormData>(() => {
     const design = searchParams.get("design");
     const type = searchParams.get("type");
@@ -114,11 +118,13 @@ export default function CustomOrderForm() {
       return;
     }
     setError(null);
+    setDirection(1);
     setStep((s) => Math.min(s + 1, 5));
   }
 
   function goBack() {
     setError(null);
+    setDirection(-1);
     setStep((s) => Math.max(s - 1, 1));
   }
 
@@ -134,8 +140,20 @@ export default function CustomOrderForm() {
 
   if (submitted) {
     return (
-      <div className="border border-border bg-white px-8 py-16 text-center">
-        <p className="text-primary">&#10084;</p>
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: EASE }}
+        className="border border-border bg-white px-8 py-16 text-center"
+      >
+        <motion.p
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.15, ease: EASE }}
+          className="text-primary"
+        >
+          &#10084;
+        </motion.p>
         <h2 className="mt-3 text-3xl sm:text-4xl">Thank you, {data.fullName.split(" ")[0]}.</h2>
         <p className="mx-auto mt-4 max-w-md text-body-ink/80">
           Your inquiry has been received. We personally review every request
@@ -148,7 +166,7 @@ export default function CustomOrderForm() {
         >
           Back to Home
         </Link>
-      </div>
+      </motion.div>
     );
   }
 
@@ -156,270 +174,301 @@ export default function CustomOrderForm() {
     <div>
       <StepIndicator current={step} />
 
-      <div className="mt-10 border border-border bg-white p-6 sm:p-10">
-        {step === 1 && (
-          <div>
-            <h3 className="text-2xl sm:text-3xl">1. Event Details</h3>
-            <div className="mt-6 border-t border-border pt-6" />
-            <div className="grid gap-6 sm:grid-cols-2">
-              <Field label="Occasion">
-                <select
-                  className={inputClass}
-                  value={data.occasion}
-                  onChange={(e) => update("occasion", e.target.value)}
-                >
-                  <option value="">Select an occasion&hellip;</option>
-                  <option>Wedding</option>
-                  <option>Birthday</option>
-                  <option>Anniversary</option>
-                  <option>Corporate Event</option>
-                  <option>Baby or Bridal Shower</option>
-                  <option>Other</option>
-                </select>
-              </Field>
-              <Field label="Event Date">
-                <input
-                  type="date"
-                  className={inputClass}
-                  value={data.eventDate}
-                  onChange={(e) => update("eventDate", e.target.value)}
-                />
-              </Field>
-              <Field label="Estimated Guest Count">
-                <input
-                  type="number"
-                  min="1"
-                  placeholder="e.g., 150"
-                  className={inputClass}
-                  value={data.guestCount}
-                  onChange={(e) => update("guestCount", e.target.value)}
-                />
-              </Field>
-            </div>
-          </div>
-        )}
-
-        {step === 2 && (
-          <div>
-            <h3 className="text-2xl sm:text-3xl">2. Your Cake</h3>
-            <div className="mt-6 border-t border-border pt-6" />
-            <div className="grid gap-6 sm:grid-cols-2">
-              <Field label="What are you ordering?">
-                <select
-                  className={inputClass}
-                  value={data.orderType}
-                  onChange={(e) => update("orderType", e.target.value)}
-                >
-                  <option value="">Select an option&hellip;</option>
-                  <option>Custom Cake</option>
-                  <option>Cupcakes</option>
-                  <option>Macarons</option>
-                  <option>A Combination</option>
-                </select>
-              </Field>
-              <Field label="Estimated Servings">
-                <input
-                  type="number"
-                  min="1"
-                  placeholder="e.g., 60"
-                  className={inputClass}
-                  value={data.servings}
-                  onChange={(e) => update("servings", e.target.value)}
-                />
-              </Field>
-              <Field label="Flavor Preferences">
-                <input
-                  type="text"
-                  placeholder="e.g., vanilla bean, chocolate espresso"
-                  className={inputClass}
-                  value={data.flavorPreferences}
-                  onChange={(e) => update("flavorPreferences", e.target.value)}
-                />
-              </Field>
-              <Field label="Dietary Considerations">
-                <input
-                  type="text"
-                  placeholder="e.g., nut-free, gluten-free"
-                  className={inputClass}
-                  value={data.dietary}
-                  onChange={(e) => update("dietary", e.target.value)}
-                />
-              </Field>
-            </div>
-          </div>
-        )}
-
-        {step === 3 && (
-          <div>
-            <h3 className="text-2xl sm:text-3xl">3. Design &amp; Inspiration</h3>
-            <div className="mt-6 border-t border-border pt-6" />
-            <div className="grid gap-6 sm:grid-cols-2">
-              <Field label="Design Style">
-                <select
-                  className={inputClass}
-                  value={data.designStyle}
-                  onChange={(e) => update("designStyle", e.target.value)}
-                >
-                  <option value="">Select a direction&hellip;</option>
-                  <option>Romantic &amp; Floral</option>
-                  <option>Modern &amp; Minimal</option>
-                  <option>Luxury &amp; Ornate</option>
-                  <option>Whimsical</option>
-                  <option>Not sure yet</option>
-                </select>
-              </Field>
-              <Field label="Color Palette">
-                <input
-                  type="text"
-                  placeholder="e.g., blush pink and gold"
-                  className={inputClass}
-                  value={data.colorPalette}
-                  onChange={(e) => update("colorPalette", e.target.value)}
-                />
-              </Field>
-              <div className="sm:col-span-2">
-                <Field label="Inspiration Notes">
-                  <textarea
-                    rows={4}
-                    placeholder="Tell us about your vision, any reference designs, or a Pinterest board link."
-                    className={inputClass}
-                    value={data.inspirationNotes}
-                    onChange={(e) => update("inspirationNotes", e.target.value)}
-                  />
-                </Field>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {step === 4 && (
-          <div>
-            <h3 className="text-2xl sm:text-3xl">4. Logistics</h3>
-            <div className="mt-6 border-t border-border pt-6" />
-            <div className="grid gap-6 sm:grid-cols-2">
-              <Field label="Delivery Method">
-                <select
-                  className={inputClass}
-                  value={data.deliveryMethod}
-                  onChange={(e) => update("deliveryMethod", e.target.value)}
-                >
-                  <option value="">Select an option&hellip;</option>
-                  <option>Studio Pickup</option>
-                  <option>Delivery &amp; Setup</option>
-                </select>
-              </Field>
-              <Field label="Estimated Budget">
-                <select
-                  className={inputClass}
-                  value={data.budget}
-                  onChange={(e) => update("budget", e.target.value)}
-                >
-                  <option value="">Select a range&hellip;</option>
-                  <option>Under $300</option>
-                  <option>$300 &ndash; $600</option>
-                  <option>$600 &ndash; $1,200</option>
-                  <option>$1,200+</option>
-                  <option>Not sure yet</option>
-                </select>
-              </Field>
-              {data.deliveryMethod === "Delivery & Setup" && (
-                <div className="sm:col-span-2">
-                  <Field label="Delivery Address">
-                    <input
-                      type="text"
-                      placeholder="Venue name and address"
+      <motion.div layout className="mt-10 overflow-hidden border border-border bg-white p-6 sm:p-10">
+        <AnimatePresence mode="wait" custom={direction} initial={false}>
+          <motion.div
+            key={step}
+            custom={direction}
+            initial={{ opacity: 0, x: direction >= 0 ? 32 : -32 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: direction >= 0 ? -32 : 32 }}
+            transition={{ duration: 0.35, ease: EASE }}
+          >
+            {step === 1 && (
+              <div>
+                <h3 className="text-2xl sm:text-3xl">1. Event Details</h3>
+                <div className="mt-6 border-t border-border pt-6" />
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <Field label="Occasion">
+                    <select
                       className={inputClass}
-                      value={data.deliveryAddress}
-                      onChange={(e) => update("deliveryAddress", e.target.value)}
+                      value={data.occasion}
+                      onChange={(e) => update("occasion", e.target.value)}
+                    >
+                      <option value="">Select an occasion&hellip;</option>
+                      <option>Wedding</option>
+                      <option>Birthday</option>
+                      <option>Anniversary</option>
+                      <option>Corporate Event</option>
+                      <option>Baby or Bridal Shower</option>
+                      <option>Other</option>
+                    </select>
+                  </Field>
+                  <Field label="Event Date">
+                    <input
+                      type="date"
+                      className={inputClass}
+                      value={data.eventDate}
+                      onChange={(e) => update("eventDate", e.target.value)}
+                    />
+                  </Field>
+                  <Field label="Estimated Guest Count">
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="e.g., 150"
+                      className={inputClass}
+                      value={data.guestCount}
+                      onChange={(e) => update("guestCount", e.target.value)}
                     />
                   </Field>
                 </div>
+              </div>
+            )}
+
+            {step === 2 && (
+              <div>
+                <h3 className="text-2xl sm:text-3xl">2. Your Cake</h3>
+                <div className="mt-6 border-t border-border pt-6" />
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <Field label="What are you ordering?">
+                    <select
+                      className={inputClass}
+                      value={data.orderType}
+                      onChange={(e) => update("orderType", e.target.value)}
+                    >
+                      <option value="">Select an option&hellip;</option>
+                      <option>Custom Cake</option>
+                      <option>Cupcakes</option>
+                      <option>Macarons</option>
+                      <option>A Combination</option>
+                    </select>
+                  </Field>
+                  <Field label="Estimated Servings">
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="e.g., 60"
+                      className={inputClass}
+                      value={data.servings}
+                      onChange={(e) => update("servings", e.target.value)}
+                    />
+                  </Field>
+                  <Field label="Flavor Preferences">
+                    <input
+                      type="text"
+                      placeholder="e.g., vanilla bean, chocolate espresso"
+                      className={inputClass}
+                      value={data.flavorPreferences}
+                      onChange={(e) => update("flavorPreferences", e.target.value)}
+                    />
+                  </Field>
+                  <Field label="Dietary Considerations">
+                    <input
+                      type="text"
+                      placeholder="e.g., nut-free, gluten-free"
+                      className={inputClass}
+                      value={data.dietary}
+                      onChange={(e) => update("dietary", e.target.value)}
+                    />
+                  </Field>
+                </div>
+              </div>
+            )}
+
+            {step === 3 && (
+              <div>
+                <h3 className="text-2xl sm:text-3xl">3. Design &amp; Inspiration</h3>
+                <div className="mt-6 border-t border-border pt-6" />
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <Field label="Design Style">
+                    <select
+                      className={inputClass}
+                      value={data.designStyle}
+                      onChange={(e) => update("designStyle", e.target.value)}
+                    >
+                      <option value="">Select a direction&hellip;</option>
+                      <option>Romantic &amp; Floral</option>
+                      <option>Modern &amp; Minimal</option>
+                      <option>Luxury &amp; Ornate</option>
+                      <option>Whimsical</option>
+                      <option>Not sure yet</option>
+                    </select>
+                  </Field>
+                  <Field label="Color Palette">
+                    <input
+                      type="text"
+                      placeholder="e.g., blush pink and gold"
+                      className={inputClass}
+                      value={data.colorPalette}
+                      onChange={(e) => update("colorPalette", e.target.value)}
+                    />
+                  </Field>
+                  <div className="sm:col-span-2">
+                    <Field label="Inspiration Notes">
+                      <textarea
+                        rows={4}
+                        placeholder="Tell us about your vision, any reference designs, or a Pinterest board link."
+                        className={inputClass}
+                        value={data.inspirationNotes}
+                        onChange={(e) => update("inspirationNotes", e.target.value)}
+                      />
+                    </Field>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {step === 4 && (
+              <div>
+                <h3 className="text-2xl sm:text-3xl">4. Logistics</h3>
+                <div className="mt-6 border-t border-border pt-6" />
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <Field label="Delivery Method">
+                    <select
+                      className={inputClass}
+                      value={data.deliveryMethod}
+                      onChange={(e) => update("deliveryMethod", e.target.value)}
+                    >
+                      <option value="">Select an option&hellip;</option>
+                      <option>Studio Pickup</option>
+                      <option>Delivery &amp; Setup</option>
+                    </select>
+                  </Field>
+                  <Field label="Estimated Budget">
+                    <select
+                      className={inputClass}
+                      value={data.budget}
+                      onChange={(e) => update("budget", e.target.value)}
+                    >
+                      <option value="">Select a range&hellip;</option>
+                      <option>Under $300</option>
+                      <option>$300 &ndash; $600</option>
+                      <option>$600 &ndash; $1,200</option>
+                      <option>$1,200+</option>
+                      <option>Not sure yet</option>
+                    </select>
+                  </Field>
+                  <AnimatePresence>
+                    {data.deliveryMethod === "Delivery & Setup" && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: EASE }}
+                        className="overflow-hidden sm:col-span-2"
+                      >
+                        <Field label="Delivery Address">
+                          <input
+                            type="text"
+                            placeholder="Venue name and address"
+                            className={inputClass}
+                            value={data.deliveryAddress}
+                            onChange={(e) => update("deliveryAddress", e.target.value)}
+                          />
+                        </Field>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+            )}
+
+            {step === 5 && (
+              <div>
+                <h3 className="text-2xl sm:text-3xl">5. Your Details</h3>
+                <div className="mt-6 border-t border-border pt-6" />
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <Field label="Full Name">
+                    <input
+                      type="text"
+                      placeholder="Your name"
+                      className={inputClass}
+                      value={data.fullName}
+                      onChange={(e) => update("fullName", e.target.value)}
+                    />
+                  </Field>
+                  <Field label="Email">
+                    <input
+                      type="email"
+                      placeholder="you@email.com"
+                      className={inputClass}
+                      value={data.email}
+                      onChange={(e) => update("email", e.target.value)}
+                    />
+                  </Field>
+                  <Field label="Phone">
+                    <input
+                      type="tel"
+                      placeholder="(optional)"
+                      className={inputClass}
+                      value={data.phone}
+                      onChange={(e) => update("phone", e.target.value)}
+                    />
+                  </Field>
+                  <div className="sm:col-span-2">
+                    <Field label="Anything else we should know?">
+                      <textarea
+                        rows={3}
+                        placeholder="Optional"
+                        className={inputClass}
+                        value={data.additionalNotes}
+                        onChange={(e) => update("additionalNotes", e.target.value)}
+                      />
+                    </Field>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <AnimatePresence>
+              {error && (
+                <motion.p
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.25 }}
+                  className="mt-6 text-sm text-primary-dark"
+                >
+                  {error}
+                </motion.p>
+              )}
+            </AnimatePresence>
+
+            <div className="mt-9 flex items-center justify-between border-t border-border pt-6">
+              {step > 1 ? (
+                <button
+                  type="button"
+                  onClick={goBack}
+                  className="btn rounded-sm border border-heading/30 px-6 py-3 text-heading transition-colors hover:bg-cream-deep"
+                >
+                  Back
+                </button>
+              ) : (
+                <span />
+              )}
+
+              {step < 5 ? (
+                <button
+                  type="button"
+                  onClick={goNext}
+                  className="btn rounded-sm bg-primary px-6 py-3 text-white transition-colors hover:bg-primary-dark"
+                >
+                  Next Step
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  className="btn rounded-sm bg-primary px-6 py-3 text-white transition-colors hover:bg-primary-dark"
+                >
+                  Submit Inquiry
+                </button>
               )}
             </div>
-          </div>
-        )}
-
-        {step === 5 && (
-          <div>
-            <h3 className="text-2xl sm:text-3xl">5. Your Details</h3>
-            <div className="mt-6 border-t border-border pt-6" />
-            <div className="grid gap-6 sm:grid-cols-2">
-              <Field label="Full Name">
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  className={inputClass}
-                  value={data.fullName}
-                  onChange={(e) => update("fullName", e.target.value)}
-                />
-              </Field>
-              <Field label="Email">
-                <input
-                  type="email"
-                  placeholder="you@email.com"
-                  className={inputClass}
-                  value={data.email}
-                  onChange={(e) => update("email", e.target.value)}
-                />
-              </Field>
-              <Field label="Phone">
-                <input
-                  type="tel"
-                  placeholder="(optional)"
-                  className={inputClass}
-                  value={data.phone}
-                  onChange={(e) => update("phone", e.target.value)}
-                />
-              </Field>
-              <div className="sm:col-span-2">
-                <Field label="Anything else we should know?">
-                  <textarea
-                    rows={3}
-                    placeholder="Optional"
-                    className={inputClass}
-                    value={data.additionalNotes}
-                    onChange={(e) => update("additionalNotes", e.target.value)}
-                  />
-                </Field>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {error && <p className="mt-6 text-sm text-primary-dark">{error}</p>}
-
-        <div className="mt-9 flex items-center justify-between border-t border-border pt-6">
-          {step > 1 ? (
-            <button
-              type="button"
-              onClick={goBack}
-              className="btn rounded-sm border border-heading/30 px-6 py-3 text-heading transition-colors hover:bg-cream-deep"
-            >
-              Back
-            </button>
-          ) : (
-            <span />
-          )}
-
-          {step < 5 ? (
-            <button
-              type="button"
-              onClick={goNext}
-              className="btn rounded-sm bg-primary px-6 py-3 text-white transition-colors hover:bg-primary-dark"
-            >
-              Next Step
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="btn rounded-sm bg-primary px-6 py-3 text-white transition-colors hover:bg-primary-dark"
-            >
-              Submit Inquiry
-            </button>
-          )}
-        </div>
-      </div>
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

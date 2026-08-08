@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { NAV_LINKS } from "@/lib/data";
 
 export default function Header() {
@@ -25,7 +26,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`nav-link transition-colors hover:text-primary ${
+                className={`link-underline nav-link transition-colors hover:text-primary ${
                   active ? "text-primary" : "text-heading"
                 }`}
               >
@@ -37,7 +38,7 @@ export default function Header() {
 
         <Link
           href="/"
-          className="font-display text-xl font-semibold text-heading lg:absolute lg:left-1/2 lg:-translate-x-1/2"
+          className="font-display text-xl font-semibold text-heading transition-opacity hover:opacity-80 lg:absolute lg:left-1/2 lg:-translate-x-1/2"
         >
           Cakes By Kanwal
         </Link>
@@ -56,40 +57,65 @@ export default function Header() {
             onClick={() => setOpen((v) => !v)}
             className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 lg:hidden"
           >
-            <span
-              className={`h-px w-6 bg-heading transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+            <motion.span
+              className="h-px w-6 bg-heading"
+              animate={open ? { y: 3.5, rotate: 45 } : { y: 0, rotate: 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             />
-            <span
-              className={`h-px w-6 bg-heading transition-transform ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+            <motion.span
+              className="h-px w-6 bg-heading"
+              animate={open ? { y: -3.5, rotate: -45 } : { y: 0, rotate: 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             />
           </button>
         </div>
       </div>
 
-      {open && (
-        <div className="border-t border-border bg-cream px-5 py-5 lg:hidden">
-          <nav className="flex flex-col">
-            {NAV_LINKS.map((link) => {
-              const active = pathname === link.href;
-              return (
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-border bg-cream lg:hidden"
+          >
+            <nav className="flex flex-col px-5 py-5">
+              {NAV_LINKS.map((link, index) => {
+                const active = pathname === link.href;
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.25, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <Link
+                      href={link.href}
+                      className={`nav-link block py-3 ${active ? "text-primary" : "text-heading"}`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+              <motion.div
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25, delay: NAV_LINKS.length * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`nav-link py-3 ${active ? "text-primary" : "text-heading"}`}
+                  href="/custom-order"
+                  className="btn mt-2 inline-block rounded-sm bg-primary px-5 py-3 text-center text-white"
                 >
-                  {link.label}
+                  Start Your Custom Order
                 </Link>
-              );
-            })}
-            <Link
-              href="/custom-order"
-              className="btn mt-2 inline-block rounded-sm bg-primary px-5 py-3 text-center text-white"
-            >
-              Start Your Custom Order
-            </Link>
-          </nav>
-        </div>
-      )}
+              </motion.div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

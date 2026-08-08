@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { FOOTER_LINKS, NAV_LINKS } from "@/lib/data";
+import Reveal from "@/components/Reveal";
 
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-cream-deep">
-      <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
+      <Reveal className="mx-auto max-w-7xl px-5 py-12 sm:px-8" distance={16}>
         <div className="flex flex-col justify-between gap-10 md:flex-row">
           <div className="max-w-sm">
-            <Link href="/" className="font-display text-2xl font-semibold text-heading">
+            <Link
+              href="/"
+              className="font-display text-2xl font-semibold text-heading transition-opacity hover:opacity-80"
+            >
               Cakes By Kanwal
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-body-ink/80">
@@ -24,7 +28,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-body-ink transition-colors hover:text-primary"
+                      className="link-underline text-sm text-body-ink transition-colors hover:text-primary"
                     >
                       {link.label}
                     </Link>
@@ -39,7 +43,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-body-ink transition-colors hover:text-primary"
+                      className="link-underline text-sm text-body-ink transition-colors hover:text-primary"
                     >
                       {link.label}
                     </Link>
@@ -49,7 +53,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
+      </Reveal>
     </footer>
   );
 }
