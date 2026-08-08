@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CAKES } from "@/lib/data";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export function generateStaticParams() {
   return CAKES.map((cake) => ({ slug: cake.slug }));
@@ -21,9 +23,26 @@ export async function generateMetadata({
   const { slug } = await params;
   const cake = await getCake(slug);
   if (!cake) return {};
+
+  const title = `${cake.name} Custom Cake`;
+
   return {
-    title: `${cake.name} | Cakes By Kanwal`,
+    title,
     description: cake.description,
+    keywords: [
+      cake.name,
+      `${cake.category} cake design`,
+      `custom ${cake.category.toLowerCase()} cake`,
+      cake.flavor,
+      "custom cake design",
+    ],
+    alternates: { canonical: `/cakes/${cake.slug}` },
+    openGraph: {
+      title,
+      description: cake.description,
+      url: `/cakes/${cake.slug}`,
+      images: [{ url: cake.image }],
+    },
   };
 }
 
@@ -38,6 +57,22 @@ export default async function CakeDetailPage({
 
   return (
     <section className="mx-auto max-w-5xl px-5 py-16 sm:px-8">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: cake.name,
+          description: cake.longDescription,
+          image: `${SITE_URL}${cake.image}`,
+          category: cake.category,
+          brand: {
+            "@type": "Brand",
+            name: SITE_NAME,
+          },
+          url: `${SITE_URL}/cakes/${cake.slug}`,
+        }}
+      />
+
       <Reveal distance={12} duration={0.5}>
         <Link
           href="/cakes"

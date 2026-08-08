@@ -4,10 +4,26 @@ import type { Metadata } from "next";
 import { CUPCAKE_FLAVORS } from "@/lib/data";
 import Reveal from "@/components/Reveal";
 
+const TITLE = "Custom Cupcakes";
+const DESCRIPTION =
+  "Custom cupcakes with the same refined flavors and elegant finishes as our larger cake creations, perfect for weddings, birthdays, and elegant gatherings.";
+
 export const metadata: Metadata = {
-  title: "Cupcakes | Cakes By Kanwal",
-  description:
-    "Petite indulgences with the same refined flavors and elegant finishes as our larger creations, perfect for elegant gatherings.",
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "custom cupcakes",
+    "gourmet cupcakes",
+    "wedding cupcakes",
+    "birthday cupcakes",
+    "cupcake flavors",
+  ],
+  alternates: { canonical: "/cupcakes" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/cupcakes",
+  },
 };
 
 export default function CupcakesPage() {

@@ -4,10 +4,27 @@ import CakeGrid from "@/components/CakeGrid";
 import Reveal from "@/components/Reveal";
 import { CAKES } from "@/lib/data";
 
+const TITLE = "The Cake Collection";
+const DESCRIPTION =
+  "Browse our signature custom cake designs, from romantic wedding tiers to minimalist celebration cakes. Bespoke cake artistry for your most cherished moments.";
+
 export const metadata: Metadata = {
-  title: "The Cake Collection | Cakes By Kanwal",
-  description:
-    "Browse our signature cake designs, from romantic wedding tiers to minimalist celebration cakes. Bespoke artistry for your most cherished moments.",
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "custom cakes",
+    "custom wedding cakes",
+    "custom birthday cakes",
+    "cake collection",
+    "luxury wedding cakes",
+    "floral cake design",
+  ],
+  alternates: { canonical: "/cakes" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/cakes",
+  },
 };
 
 export default function CakesPage() {

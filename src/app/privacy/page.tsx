@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Cakes By Kanwal",
+  title: "Privacy Policy",
   description: "How Cakes By Kanwal collects, uses, and protects your information.",
+  alternates: { canonical: "/privacy" },
 };
 
 const SECTIONS = [

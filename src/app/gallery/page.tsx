@@ -3,10 +3,26 @@ import GalleryGrid from "@/components/GalleryGrid";
 import Reveal from "@/components/Reveal";
 import { GALLERY_IMAGES } from "@/lib/data";
 
+const TITLE = "Gallery";
+const DESCRIPTION =
+  "A look inside the atelier — custom cakes, cupcakes, macarons, and the craft behind them.";
+
 export const metadata: Metadata = {
-  title: "Gallery | Cakes By Kanwal",
-  description:
-    "A look inside the atelier &mdash; cakes, cupcakes, macarons, and the craft behind them.",
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "cake gallery",
+    "wedding cake photos",
+    "custom cake portfolio",
+    "macaron photos",
+    "bakery portfolio",
+  ],
+  alternates: { canonical: "/gallery" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/gallery",
+  },
 };
 
 export default function GalleryPage() {

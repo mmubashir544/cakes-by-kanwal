@@ -5,10 +5,26 @@ import SectionIntro from "@/components/SectionIntro";
 import Reveal from "@/components/Reveal";
 import { MACARON_COLLECTIONS } from "@/lib/data";
 
+const TITLE = "Macaron Artistry";
+const DESCRIPTION =
+  "Delicate French macarons crafted with intention, colored by nature, filled with romance. Explore our signature custom macaron collections.";
+
 export const metadata: Metadata = {
-  title: "Macaron Artistry | Cakes By Kanwal",
-  description:
-    "Delicate French macarons crafted with intention, colored by nature, filled with romance. Explore our signature macaron collections.",
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "french macarons",
+    "custom macarons",
+    "macaron collections",
+    "wedding macarons",
+    "macaron flavors",
+  ],
+  alternates: { canonical: "/macarons" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/macarons",
+  },
 };
 
 export default function MacaronsPage() {

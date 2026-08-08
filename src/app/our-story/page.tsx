@@ -3,10 +3,25 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 
+const TITLE = "Our Story";
+const DESCRIPTION =
+  "Meet Kanwal and discover the philosophy behind the atelier — uncompromising quality, bespoke cake artistry, and an unforgettable experience.";
+
 export const metadata: Metadata = {
-  title: "Our Story | Cakes By Kanwal",
-  description:
-    "Meet Kanwal and discover the philosophy behind the atelier &mdash; uncompromising quality, bespoke artistry, and an unforgettable experience.",
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "cake designer story",
+    "bespoke cake artist",
+    "about Cakes By Kanwal",
+    "custom cake philosophy",
+  ],
+  alternates: { canonical: "/our-story" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/our-story",
+  },
 };
 
 export default function OurStoryPage() {

@@ -4,10 +4,25 @@ import type { Metadata } from "next";
 import CustomOrderForm from "@/components/CustomOrderForm";
 import Reveal from "@/components/Reveal";
 
+const TITLE = "Start Your Custom Order";
+const DESCRIPTION =
+  "An atelier dedicated to the craft of fine baking. Begin your custom cake, cupcake, or macaron consultation and bring your vision to life.";
+
 export const metadata: Metadata = {
-  title: "Start Your Custom Order | Cakes By Kanwal",
-  description:
-    "An atelier dedicated to the craft of fine baking. Begin your custom cake, cupcake, or macaron consultation.",
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "order custom cake",
+    "custom cake inquiry",
+    "cake consultation",
+    "custom cake quote",
+  ],
+  alternates: { canonical: "/custom-order" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/custom-order",
+  },
 };
 
 export default function CustomOrderPage() {
