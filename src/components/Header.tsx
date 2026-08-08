@@ -54,7 +54,7 @@ export default function Header() {
             aria-label="Toggle menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 lg:hidden"
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 lg:hidden"
           >
             <span
               className={`h-px w-6 bg-heading transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
@@ -68,14 +68,14 @@ export default function Header() {
 
       {open && (
         <div className="border-t border-border bg-cream px-5 py-5 lg:hidden">
-          <nav className="flex flex-col gap-4">
+          <nav className="flex flex-col">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`nav-link ${active ? "text-primary" : "text-heading"}`}
+                  className={`nav-link py-3 ${active ? "text-primary" : "text-heading"}`}
                 >
                   {link.label}
                 </Link>

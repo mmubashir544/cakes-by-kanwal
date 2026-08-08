@@ -13,7 +13,7 @@ export default function CakesPage() {
   return (
     <>
       <section className="mx-auto max-w-4xl px-5 pt-20 pb-4 text-center sm:px-8">
-        <h1 className="text-5xl sm:text-6xl">The Cake Collection</h1>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl">The Cake Collection</h1>
         <p className="mt-4 text-lg text-body-ink/80">
           Bespoke artistry for your most cherished moments.
         </p>

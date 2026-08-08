@@ -18,11 +18,12 @@ export default function CustomOrderPage() {
           alt=""
           fill
           priority
+          sizes="100vw"
           className="object-cover"
         />
         <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center px-5 py-20 text-center">
           <p className="eyebrow text-primary">Bespoke Confectionery Artistry</p>
-          <h1 className="mt-3 text-4xl sm:text-5xl md:text-6xl">
+          <h1 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
             Your vision,{" "}
             <span className="text-primary">beautifully brought to life.</span>
           </h1>

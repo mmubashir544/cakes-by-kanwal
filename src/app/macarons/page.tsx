@@ -19,11 +19,12 @@ export default function MacaronsPage() {
           alt=""
           fill
           priority
+          sizes="100vw"
           className="object-cover"
         />
         <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center px-5 py-20 text-center">
           <p className="eyebrow text-primary">The Macaron Atelier</p>
-          <h1 className="mt-3 text-5xl sm:text-6xl">Edible Jewels</h1>
+          <h1 className="mt-3 text-4xl sm:text-5xl md:text-6xl">Edible Jewels</h1>
           <p className="mt-4 text-lg text-body-ink/80">
             Crafted with intention, colored by nature, filled with romance.
           </p>
@@ -60,10 +61,11 @@ export default function MacaronsPage() {
                 src="/images/macaron-shell.jpg"
                 alt="Piping macaron shells onto a baking sheet"
                 fill
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
             </div>
-            <div className="absolute -bottom-6 left-0 w-56 bg-cream p-5 shadow-lg sm:-left-8">
+            <div className="absolute -bottom-6 left-0 w-48 bg-cream p-5 shadow-lg sm:w-56 md:-left-8">
               <p className="text-primary">&#10084;</p>
               <h3 className="mt-1 text-xl">Pure Ingredients</h3>
               <p className="mt-1 text-sm text-body-ink/75">
@@ -81,7 +83,7 @@ export default function MacaronsPage() {
             title="Signature Collections"
             subtitle="Curated palettes of flavor and color."
           />
-          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
             {MACARON_COLLECTIONS.map((collection) => (
               <article key={collection.slug} className="bg-white">
                 <div className="relative aspect-square w-full overflow-hidden">
@@ -89,6 +91,7 @@ export default function MacaronsPage() {
                     src={collection.image}
                     alt={collection.name}
                     fill
+                    sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover"
                   />
                 </div>

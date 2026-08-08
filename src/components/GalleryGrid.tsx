@@ -47,6 +47,7 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
               src={image.src}
               alt={image.alt}
               fill
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
               className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </button>
@@ -63,7 +64,7 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
           <button
             type="button"
             aria-label="Close"
-            className="absolute right-5 top-5 text-3xl text-white/80 transition-colors hover:text-white"
+            className="absolute right-3 top-3 p-3 text-3xl text-white/80 transition-colors hover:text-white sm:right-5 sm:top-5"
             onClick={() => setSelected(null)}
           >
             &times;

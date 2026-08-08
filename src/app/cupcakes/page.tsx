@@ -29,6 +29,7 @@ export default function CupcakesPage() {
               src="/images/card-cupcakes.jpg"
               alt="Assorted signature cupcakes with berries and gold leaf"
               fill
+              sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
             />
           </div>

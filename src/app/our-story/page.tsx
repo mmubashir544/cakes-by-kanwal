@@ -28,6 +28,7 @@ export default function OurStoryPage() {
               src="/images/story-handcrafted.jpg"
               alt="Detailing a hand-painted floral wedding cake"
               fill
+              sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
               priority
             />
@@ -43,6 +44,7 @@ export default function OurStoryPage() {
                 src="/images/story-portrait.jpg"
                 alt="Kanwal in her atelier kitchen"
                 fill
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
             </div>
@@ -87,6 +89,7 @@ export default function OurStoryPage() {
                   src="/images/story-quality.jpg"
                   alt="Fine baking ingredients: vanilla, raspberries, butter"
                   fill
+                  sizes="(min-width: 768px) 25vw, 100vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-heading/85 via-heading/10 to-transparent" />
@@ -107,6 +110,7 @@ export default function OurStoryPage() {
                   src="/images/story-artistry.jpg"
                   alt="Hand-painted floral detail on a wedding cake"
                   fill
+                  sizes="(min-width: 768px) 25vw, 100vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-heading/85 via-heading/10 to-transparent" />

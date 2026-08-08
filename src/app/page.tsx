@@ -12,6 +12,7 @@ export default function Home() {
           alt=""
           fill
           priority
+          sizes="100vw"
           className="object-cover"
         />
         <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-5 py-24 text-center">
@@ -25,7 +26,7 @@ export default function Home() {
               priority
             />
           </div>
-          <h1 className="text-4xl leading-tight sm:text-5xl md:text-6xl">
+          <h1 className="text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
             Beautiful Cakes for Your Most Meaningful Moments
           </h1>
           <p className="mt-5 text-lg text-body-ink/80">
@@ -55,6 +56,7 @@ export default function Home() {
               src="/images/home-handcrafted.jpg"
               alt="Hand-placing a sugar rose on a tiered wedding cake"
               fill
+              sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
             />
           </div>
@@ -86,7 +88,7 @@ export default function Home() {
       <section className="bg-cream-deep py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <SectionIntro title="Signature Offerings" />
-          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
             {SIGNATURE_OFFERINGS.map((offering) => (
               <div
                 key={offering.title}
@@ -97,6 +99,7 @@ export default function Home() {
                     src={offering.image}
                     alt={offering.title}
                     fill
+                    sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover"
                   />
                 </div>

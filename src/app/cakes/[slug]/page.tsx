@@ -46,7 +46,14 @@ export default async function CakeDetailPage({
 
       <div className="mt-8 grid gap-10 md:grid-cols-2 md:gap-14">
         <div className="relative aspect-[4/5] w-full overflow-hidden">
-          <Image src={cake.image} alt={cake.name} fill className="object-cover" priority />
+          <Image
+            src={cake.image}
+            alt={cake.name}
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+            priority
+          />
         </div>
 
         <div>

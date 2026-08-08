@@ -40,6 +40,7 @@ export default function CakeGrid({ cakes }: { cakes: Cake[] }) {
                   src={cake.image}
                   alt={cake.name}
                   fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
                   className="object-cover"
                 />
               </div>
