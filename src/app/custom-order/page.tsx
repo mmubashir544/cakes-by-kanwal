@@ -47,7 +47,7 @@ export default function CustomOrderPage() {
         />
         <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center px-5 py-20 text-center">
           <Reveal delay={0}>
-            <p className="eyebrow text-primary">Bespoke Confectionery Artistry</p>
+            <p className="eyebrow text-primary">One-on-One Cake Design</p>
           </Reveal>
           <Reveal delay={0.12}>
             <h1 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">

@@ -31,12 +31,13 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.15}>
             <h1 className="text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-              Beautiful Cakes for Your Most Meaningful Moments
+              The Centerpiece Your Celebration Deserves
             </h1>
           </Reveal>
           <Reveal delay={0.28}>
             <p className="mt-5 text-lg text-body-ink/80">
-              Bespoke confectionery artistry for life&apos;s elegant celebrations.
+              Handcrafted cakes, cupcakes &amp; macarons, designed as edible art
+              for weddings, birthdays, and life&apos;s most elegant occasions.
             </p>
           </Reveal>
           <Reveal delay={0.4}>
@@ -73,7 +74,7 @@ export default function Home() {
           </Reveal>
           <Reveal direction="right" delay={0.1}>
             <div>
-              <h2 className="text-4xl sm:text-5xl">Handcrafted with Intention</h2>
+              <h2 className="text-4xl sm:text-5xl">Where Craft Becomes Art</h2>
               <div className="divider-ornament my-5 justify-start">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
               </div>

@@ -8,7 +8,7 @@ import { breadcrumbList, itemList } from "@/lib/seo";
 
 const TITLE = "The Cake Collection";
 const DESCRIPTION =
-  "Browse our signature custom cake designs, from romantic wedding tiers to minimalist celebration cakes. Bespoke cake artistry for your most cherished moments.";
+  "Browse our signature custom cake designs, from romantic wedding tiers to minimalist celebration cakes — each one designed and baked to order.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -47,7 +47,7 @@ export default function CakesPage() {
       <Reveal className="mx-auto max-w-4xl px-5 pt-20 pb-4 text-center sm:px-8">
         <h1 className="text-4xl sm:text-5xl md:text-6xl">The Cake Collection</h1>
         <p className="mt-4 text-lg text-body-ink/80">
-          Bespoke artistry for your most cherished moments.
+          One-of-a-kind designs, sculpted around your celebration.
         </p>
         <div className="divider-ornament my-8 justify-center">
           <span className="h-1.5 w-1.5 rounded-full bg-primary" />

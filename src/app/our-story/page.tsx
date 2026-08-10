@@ -7,7 +7,7 @@ import { breadcrumbList } from "@/lib/seo";
 
 const TITLE = "Our Story";
 const DESCRIPTION =
-  "Meet Kanwal and discover the philosophy behind the atelier — uncompromising quality, bespoke cake artistry, and an unforgettable experience.";
+  "Meet Kanwal and discover the philosophy behind the atelier — uncompromising quality, meticulous craftsmanship, and an unforgettable experience.";
 
 export const metadata: Metadata = {
   title: TITLE,
