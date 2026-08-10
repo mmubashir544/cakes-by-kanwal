@@ -4,56 +4,102 @@ import SectionIntro from "@/components/SectionIntro";
 import Reveal from "@/components/Reveal";
 import { SIGNATURE_OFFERINGS } from "@/lib/data";
 
+const HERO_FEATURES = [
+  "Designed Around You",
+  "Baked Fresh to Order",
+  "Delivered with Care",
+];
+
 export default function Home() {
   return (
     <>
-      <section className="relative flex min-h-[92vh] items-center justify-center overflow-hidden">
-        <Image
-          src="/images/home-hero.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+      <section className="relative overflow-hidden bg-gradient-to-b from-blush/35 via-cream to-cream">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-blush blur-3xl"
         />
-        <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-5 py-24 text-center">
-          <Reveal delay={0} duration={0.6} distance={16}>
-            <div className="mb-8 rotate-[-2deg] rounded-lg bg-white p-3 shadow-xl">
-              <Image
-                src="/images/logo-512.png"
-                alt="Cakes By Kanwal"
-                width={128}
-                height={128}
-                className="h-28 w-28 sm:h-32 sm:w-32"
-                priority
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 top-1/3 h-72 w-72 rounded-full bg-blush-deep/50 blur-3xl"
+        />
+
+        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:py-28">
+          <div className="text-center lg:text-left">
+            <Reveal delay={0}>
+              <p className="eyebrow justify-center text-primary lg:justify-start">
+                Bespoke Cake Artistry
+              </p>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <h1 className="mt-4 text-4xl leading-[1.08] sm:text-5xl md:text-6xl lg:text-[3.4rem]">
+                The <span className="text-primary">Centerpiece</span> Your
+                Celebration Deserves
+              </h1>
+            </Reveal>
+            <Reveal delay={0.24}>
+              <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-body-ink/80 lg:mx-0">
+                Handcrafted cakes, cupcakes &amp; macarons, designed as edible art
+                for weddings, birthdays, and life&apos;s most elegant occasions.
+              </p>
+            </Reveal>
+            <Reveal delay={0.36}>
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+                <Link
+                  href="/custom-order"
+                  className="btn rounded-sm bg-primary px-7 py-3.5 text-center text-white transition-colors hover:bg-primary-dark"
+                >
+                  Start Your Custom Order
+                </Link>
+                <Link
+                  href="/cakes"
+                  className="btn rounded-sm border border-heading/30 bg-white/70 px-7 py-3.5 text-center text-heading transition-colors hover:bg-white"
+                >
+                  Explore Our Cakes
+                </Link>
+              </div>
+            </Reveal>
+            <Reveal delay={0.48}>
+              <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-border pt-7 lg:justify-start">
+                {HERO_FEATURES.map((feature) => (
+                  <li
+                    key={feature}
+                    className="eyebrow flex items-center gap-2 text-body-ink/60"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+
+          <Reveal direction="right" delay={0.2}>
+            <div className="relative mx-auto max-w-md lg:max-w-none">
+              <div className="img-zoom relative aspect-[4/5] w-full overflow-hidden rounded-sm shadow-2xl shadow-heading/20">
+                <Image
+                  src="/images/cake-ethereal-blossom.jpg"
+                  alt="A four-tier wedding cake with hand-piped lace texture and hand-formed sugar florals"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 45vw, (min-width: 640px) 60vw, 90vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-8 -right-4 sm:-right-8">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white p-1.5 shadow-xl ring-1 ring-heading/10 sm:h-28 sm:w-28">
+                  <Image
+                    src="/images/logo-512.png"
+                    alt="Cakes By Kanwal"
+                    width={112}
+                    height={112}
+                    className="h-full w-full rounded-full object-cover"
+                  />
+                </div>
+              </div>
+              <div
+                aria-hidden
+                className="absolute -inset-5 -z-10 hidden rounded-sm border border-primary/20 lg:block"
               />
-            </div>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <h1 className="text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-              The Centerpiece Your Celebration Deserves
-            </h1>
-          </Reveal>
-          <Reveal delay={0.28}>
-            <p className="mt-5 text-lg text-body-ink/80">
-              Handcrafted cakes, cupcakes &amp; macarons, designed as edible art
-              for weddings, birthdays, and life&apos;s most elegant occasions.
-            </p>
-          </Reveal>
-          <Reveal delay={0.4}>
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/custom-order"
-                className="btn rounded-sm bg-primary px-7 py-3.5 text-white transition-colors hover:bg-primary-dark"
-              >
-                Start Your Custom Order
-              </Link>
-              <Link
-                href="/cakes"
-                className="btn rounded-sm border border-heading/30 bg-white/70 px-7 py-3.5 text-heading transition-colors hover:bg-white"
-              >
-                Explore Our Cakes
-              </Link>
             </div>
           </Reveal>
         </div>

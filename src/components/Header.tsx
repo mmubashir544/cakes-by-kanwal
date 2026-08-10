@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { NAV_LINKS } from "@/lib/data";
 
@@ -10,14 +10,36 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [lastPathname, setLastPathname] = useState(pathname);
+  const [scrolled, setScrolled] = useState(false);
 
   if (pathname !== lastPathname) {
     setLastPathname(pathname);
     setOpen(false);
   }
 
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 8);
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-cream/95 backdrop-blur-sm">
+    <header
+      id="top"
+      className={`sticky top-0 z-50 border-b bg-cream/95 backdrop-blur-sm transition-shadow duration-300 ${
+        scrolled ? "border-border shadow-[0_8px_24px_-16px_rgba(90,69,71,0.35)]" : "border-transparent"
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
         <nav className="hidden items-center gap-6 lg:flex">
           {NAV_LINKS.map((link) => {
@@ -26,11 +48,19 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`link-underline nav-link transition-colors hover:text-primary ${
+                aria-current={active ? "page" : undefined}
+                className={`link-underline nav-link relative pb-1 transition-colors hover:text-primary ${
                   active ? "text-primary" : "text-heading"
                 }`}
               >
                 {link.label}
+                {active && (
+                  <motion.span
+                    layoutId="header-active-dot"
+                    className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
               </Link>
             );
           })}
@@ -93,7 +123,10 @@ export default function Header() {
                   >
                     <Link
                       href={link.href}
-                      className={`nav-link block py-3 ${active ? "text-primary" : "text-heading"}`}
+                      aria-current={active ? "page" : undefined}
+                      className={`nav-link block border-b border-border/60 py-3 ${
+                        active ? "text-primary" : "text-heading"
+                      }`}
                     >
                       {link.label}
                     </Link>
