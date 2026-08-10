@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbList } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -83,6 +85,12 @@ const SECTIONS = [
 export default function PrivacyPage() {
   return (
     <section className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", url: "/" },
+          { name: "Privacy Policy", url: "/privacy" },
+        ])}
+      />
       <Reveal>
         <h1 className="text-4xl sm:text-5xl">Privacy Policy</h1>
         <p className="mt-4 text-sm text-body-ink/60">Last updated: 2026</p>

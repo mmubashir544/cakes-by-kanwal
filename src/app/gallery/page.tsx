@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import GalleryGrid from "@/components/GalleryGrid";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
 import { GALLERY_IMAGES } from "@/lib/data";
+import { breadcrumbList } from "@/lib/seo";
 
 const TITLE = "Gallery";
 const DESCRIPTION =
@@ -28,6 +30,12 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", url: "/" },
+          { name: "Gallery", url: "/gallery" },
+        ])}
+      />
       <Reveal className="mx-auto max-w-4xl px-5 pt-20 pb-4 text-center sm:px-8">
         <h1 className="text-5xl sm:text-6xl">Gallery</h1>
         <p className="mt-4 text-lg text-body-ink/80">

@@ -3,7 +3,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import SectionIntro from "@/components/SectionIntro";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
 import { MACARON_COLLECTIONS } from "@/lib/data";
+import { breadcrumbList } from "@/lib/seo";
 
 const TITLE = "Macaron Artistry";
 const DESCRIPTION =
@@ -30,6 +32,12 @@ export const metadata: Metadata = {
 export default function MacaronsPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", url: "/" },
+          { name: "Macarons", url: "/macarons" },
+        ])}
+      />
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden">
         <Image
           src="/images/macarons-hero.jpg"

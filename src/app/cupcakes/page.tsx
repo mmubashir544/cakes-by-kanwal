@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { CUPCAKE_FLAVORS } from "@/lib/data";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbList } from "@/lib/seo";
 
 const TITLE = "Custom Cupcakes";
 const DESCRIPTION =
@@ -29,6 +31,12 @@ export const metadata: Metadata = {
 export default function CupcakesPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", url: "/" },
+          { name: "Cupcakes", url: "/cupcakes" },
+        ])}
+      />
       <Reveal className="mx-auto max-w-4xl px-5 pt-20 pb-4 text-center sm:px-8">
         <h1 className="text-5xl sm:text-6xl">Cupcakes</h1>
         <p className="mt-4 text-lg text-body-ink/80">

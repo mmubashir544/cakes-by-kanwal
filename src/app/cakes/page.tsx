@@ -2,7 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import CakeGrid from "@/components/CakeGrid";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
 import { CAKES } from "@/lib/data";
+import { breadcrumbList, itemList } from "@/lib/seo";
 
 const TITLE = "The Cake Collection";
 const DESCRIPTION =
@@ -30,6 +32,18 @@ export const metadata: Metadata = {
 export default function CakesPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", url: "/" },
+          { name: "Cakes", url: "/cakes" },
+        ])}
+      />
+      <JsonLd
+        data={itemList(
+          "Custom Cake Collection",
+          CAKES.map((cake) => ({ name: cake.name, url: `/cakes/${cake.slug}` }))
+        )}
+      />
       <Reveal className="mx-auto max-w-4xl px-5 pt-20 pb-4 text-center sm:px-8">
         <h1 className="text-4xl sm:text-5xl md:text-6xl">The Cake Collection</h1>
         <p className="mt-4 text-lg text-body-ink/80">

@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { CAKES } from "@/lib/data";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { SITE_NAME, SITE_URL, breadcrumbList } from "@/lib/seo";
 
 export function generateStaticParams() {
   return CAKES.map((cake) => ({ slug: cake.slug }));
@@ -71,6 +71,13 @@ export default async function CakeDetailPage({
           },
           url: `${SITE_URL}/cakes/${cake.slug}`,
         }}
+      />
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", url: "/" },
+          { name: "Cakes", url: "/cakes" },
+          { name: cake.name, url: `/cakes/${cake.slug}` },
+        ])}
       />
 
       <Reveal distance={12} duration={0.5}>

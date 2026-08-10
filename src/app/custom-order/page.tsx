@@ -3,6 +3,8 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import CustomOrderForm from "@/components/CustomOrderForm";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbList } from "@/lib/seo";
 
 const TITLE = "Start Your Custom Order";
 const DESCRIPTION =
@@ -28,6 +30,12 @@ export const metadata: Metadata = {
 export default function CustomOrderPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", url: "/" },
+          { name: "Custom Order", url: "/custom-order" },
+        ])}
+      />
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden">
         <Image
           src="/images/custom-order-hero.jpg"

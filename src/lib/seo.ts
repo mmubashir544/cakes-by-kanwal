@@ -25,3 +25,38 @@ export const DEFAULT_KEYWORDS = [
   "dessert table",
   "Cakes By Kanwal",
 ];
+
+type BreadcrumbItem = { name: string; url: string };
+
+// Produces schema.org BreadcrumbList JSON-LD so search engines can render
+// breadcrumb trails in results. `url` should be a site-relative path (e.g. "/cakes").
+export function breadcrumbList(items: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.url}`,
+    })),
+  };
+}
+
+type ListItem = { name: string; url: string };
+
+// Produces schema.org ItemList JSON-LD for a catalog/collection page so
+// search engines can understand and surface its individual entries.
+export function itemList(name: string, items: ListItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: `${SITE_URL}${item.url}`,
+    })),
+  };
+}

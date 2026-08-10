@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbList } from "@/lib/seo";
 
 const TITLE = "Our Story";
 const DESCRIPTION =
@@ -27,6 +29,12 @@ export const metadata: Metadata = {
 export default function OurStoryPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", url: "/" },
+          { name: "Our Story", url: "/our-story" },
+        ])}
+      />
       <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
           <Reveal direction="left">
